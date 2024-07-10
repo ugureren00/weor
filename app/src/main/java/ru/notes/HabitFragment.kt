@@ -1,27 +1,22 @@
-package ru.notes
-
-import android.annotation.SuppressLint
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import ru.notes.HabitAdapter
+import ru.notes.HabitDao
+import ru.notes.HabitDatabase
+import ru.notes.R
 
-class HabitFragment : Fragment() {
+class HabitFragment : Fragment(R.layout.fragment_habit) {
 
     private lateinit var habitAdapter: HabitAdapter
     private lateinit var habitRecyclerView: RecyclerView
     private lateinit var habitDatabase: HabitDatabase
     private lateinit var habitDao: HabitDao
 
-    @SuppressLint("MissingInflatedId")
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        val view = inflater.inflate(R.layout.fragment_tracker, container, false)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         habitRecyclerView = view.findViewById(R.id.habit_recycler_view)
         habitRecyclerView.layoutManager = LinearLayoutManager(context)
         habitDatabase = HabitDatabase.getDatabase(requireContext())
@@ -31,6 +26,5 @@ class HabitFragment : Fragment() {
             habitAdapter = HabitAdapter(habits)
             habitRecyclerView.adapter = habitAdapter
         }
-        return view
     }
 }
